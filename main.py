@@ -33,7 +33,7 @@ TRANSLATIONS = {
         "qual_placeholder": "Enter the qualifications required for this position",
         "pdf_loaded": "PDF content loaded. The chatbot is now ready to ask questions based on this document.",
         "lets_start": "Let's start the interview! Interview type: ",
-        "instance_id": "EC2 Instance ID",
+        # "instance_id": "EC2 Instance ID",
         "search_options": "Search Options",
         "case_sensitive": "Case Sensitive",
         "match_whole_words": "Match Whole Words",
@@ -72,7 +72,7 @@ TRANSLATIONS = {
         "qual_placeholder": "Tuliskan kualifikasi yang diperlukan untuk posisi ini",
         "pdf_loaded": "Konten PDF dimuat. Chatbot siap mengajukan pertanyaan berdasarkan dokumen ini.",
         "lets_start": "Ayo kita mulai interviewnya! Jenis interview: ",
-        "instance_id": "ID Instance EC2",
+        # "instance_id": "ID Instance EC2",
         "search_options": "Opsi Pencarian",
         "case_sensitive": "Sesuai Huruf Besar/Kecil", 
         "match_whole_words": "Cocokkan Kata Lengkap",
@@ -111,7 +111,7 @@ TRANSLATIONS = {
         "qual_placeholder": "Entrez les qualifications requises pour ce poste",
         "pdf_loaded": "Contenu PDF chargé. Le chatbot est maintenant prêt à poser des questions basées sur ce document.",
         "lets_start": "Commençons l'entretien! Type d'entretien: ",
-        "instance_id": "ID d'instance EC2",
+        # "instance_id": "ID d'instance EC2",
         "search_options": "Options de recherche",
         "case_sensitive": "Sensible à la casse",
         "match_whole_words": "Correspondance mot entier",
@@ -150,7 +150,7 @@ TRANSLATIONS = {
         "qual_placeholder": "Introduce las cualificaciones requeridas para este puesto",
         "pdf_loaded": "Contenido PDF cargado. El chatbot está ahora listo para hacer preguntas basadas en este documento.",
         "lets_start": "¡Comencemos la entrevista! Tipo de entrevista: ",
-        "instance_id": "ID de instancia EC2",
+        # "instance_id": "ID de instancia EC2",
         "search_options": "Opciones de búsqueda",
         "case_sensitive": "Distinguir mayúsculas y minúsculas",
         "match_whole_words": "Coincidir palabras completas",
@@ -189,7 +189,7 @@ TRANSLATIONS = {
         "qual_placeholder": "Voer de vereiste kwalificaties in voor deze functie",
         "pdf_loaded": "PDF-inhoud geladen. De chatbot is nu klaar om vragen te stellen op basis van dit document.",
         "lets_start": "Laten we het interview beginnen! Type interview: ",
-        "instance_id": "EC2 Instance ID",
+        # "instance_id": "EC2 Instance ID",
         "search_options": "Zoekopties",
         "case_sensitive": "Hoofdlettergevoelig",
         "match_whole_words": "Hele woorden matchen",
@@ -228,7 +228,7 @@ TRANSLATIONS = {
         "qual_placeholder": "输入此职位所需的资格条件",
         "pdf_loaded": "PDF内容已加载。聊天机器人现在准备根据此文档提问。",
         "lets_start": "让我们开始面试！面试类型：",
-        "instance_id": "EC2实例ID",
+        # "instance_id": "EC2实例ID",
         "search_options": "搜索选项",
         "case_sensitive": "区分大小写",
         "match_whole_words": "匹配整词",
@@ -261,9 +261,9 @@ def count_words(text):
 
 
 # Default settings
-DEFAULT_API_KEY = ("PASTE_KEY_HERE")
+DEFAULT_API_KEY = ("524a7a8742b5d385c068261d9dbc711b846798bfd183c6b475c5058806415d83")
 DEFAULT_BASE_URL = "https://api.together.xyz/v1"
-DEFAULT_MODEL = "meta-llama/Llama-Vision-Free"
+DEFAULT_MODEL = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
 CODING_MODEL = "Qwen/Qwen2.5-Coder-32B-Instruct"
 DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_TOKENS = 512
@@ -361,25 +361,25 @@ class ConversationManager:
     def reset_conversation(self):
         self.conversation_history = []
 
-def get_instance_id():
-    """Retrieve the EC2 instance ID from AWS metadata using IMDSv2."""
-    try:
-        # Step 1: Get the token
-        token = requests.put(
-            "http://169.254.169.254/latest/api/token",
-            headers={"X-aws-ec2-metadata-token-ttl-seconds": "21600"},
-            timeout=1
-        ).text
+# def get_instance_id():
+#     """Retrieve the EC2 instance ID from AWS metadata using IMDSv2."""
+#     try:
+#         # Step 1: Get the token
+#         token = requests.put(
+#             "http://169.254.169.254/latest/api/token",
+#             headers={"X-aws-ec2-metadata-token-ttl-seconds": "21600"},
+#             timeout=1
+#         ).text
 
-        # Step 2: Use the token to get the instance ID
-        instance_id = requests.get(
-            "http://169.254.169.254/latest/meta-data/instance-id",
-            headers={"X-aws-ec2-metadata-token": token},
-            timeout=1
-        ).text
-        return instance_id
-    except requests.exceptions.RequestException:
-        return "Instance ID not available (running locally or error in retrieval)"
+#         # Step 2: Use the token to get the instance ID
+#         instance_id = requests.get(
+#             "http://169.254.169.254/latest/meta-data/instance-id",
+#             headers={"X-aws-ec2-metadata-token": token},
+#             timeout=1
+#         ).text
+#         return instance_id
+#     except requests.exceptions.RequestException:
+#         return "Instance ID not available (running locally or error in retrieval)"
     
 # PDF Parsing Function
 def parse_pdf(file):
@@ -454,7 +454,7 @@ st.sidebar.markdown(f"### {trans['response_settings']}")
 word_limit = st.sidebar.slider(
     trans["word_limit"],
     min_value=50,
-    max_value=500,
+    max_value=1000,
     value=DEFAULT_WORD_LIMIT,
     step=50,
     help=trans["word_limit_help"]
@@ -462,7 +462,6 @@ word_limit = st.sidebar.slider(
 
 # Add a container for word count warning in sidebar
 word_count_container = st.sidebar.container()
-
 
 
 # Initialize the ConversationManager object
@@ -635,8 +634,8 @@ with tabs[0]:
     st.title("HireHelp")
 
     # Display EC2 Instance ID
-    instance_id = get_instance_id()
-    st.write(f"**{trans['instance_id']}**: {instance_id}")
+    # instance_id = get_instance_id()
+    # st.write(f"**{trans['instance_id']}**: {instance_id}")
 
     # PDF Upload
     uploaded_file = st.file_uploader("Upload your CV in PDF format", type="pdf")
@@ -765,9 +764,11 @@ with tabs[1]:
                     }],
                     temperature=0.7,
                     max_tokens=250
+                    
                 )
                 st.markdown(summary_response.choices[0].message.content)
             except Exception as e:
                 st.warning("⚠️ Failed to generate summary. Please try again.")
         else:
             st.warning("⚠️ No conversation to summarize yet!")
+
