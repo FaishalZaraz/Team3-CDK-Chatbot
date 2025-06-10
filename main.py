@@ -631,7 +631,7 @@ tabs = st.tabs(["Chatbot", "Summary"])
 # Chatbot tab: Contains the chatbot UI
 with tabs[0]:
     ### Streamlit code ###
-    st.title("HireHelp")
+    st.markdown("<h1 style='text-align: center;'>💼HireHelp</h1>", unsafe_allow_html=True)
 
     # Display EC2 Instance ID
     # instance_id = get_instance_id()
