@@ -261,9 +261,9 @@ def count_words(text):
 
 
 # Default settings
-DEFAULT_API_KEY = ("524a7a8742b5d385c068261d9dbc711b846798bfd183c6b475c5058806415d83")
+DEFAULT_API_KEY = os.getenv("OPENAI_API_KEY")
 DEFAULT_BASE_URL = "https://api.together.xyz/v1"
-DEFAULT_MODEL = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
+DEFAULT_MODEL = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
 CODING_MODEL = "Qwen/Qwen2.5-Coder-32B-Instruct"
 DEFAULT_TEMPERATURE = 0.7
 DEFAULT_MAX_TOKENS = 512
