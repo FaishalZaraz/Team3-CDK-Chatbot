@@ -13,6 +13,12 @@ import csv
 import io
 import re
 
+st.set_page_config(
+    page_title="Aplikasi Chatbot",
+    page_icon="briefcase",  
+    layout="wide"
+)
+
 # Initialize conversation history if it doesn't exist
 if 'conversation_history' not in st.session_state:
     st.session_state['conversation_history'] = []
