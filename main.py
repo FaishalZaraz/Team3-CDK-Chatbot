@@ -14,7 +14,7 @@ import io
 import re
 
 st.set_page_config(
-    page_title="Aplikasi Chatbot",
+    page_title="HireHelp - AI Interviewer",
     page_icon="briefcase",  
     layout="wide"
 )
