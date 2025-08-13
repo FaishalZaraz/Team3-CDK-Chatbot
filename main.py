@@ -267,7 +267,7 @@ def count_words(text):
 
 
 # Default settings
-DEFAULT_API_KEY = os.getenv("OPENAI_API_KEY")
+DEFAULT_API_KEY = os.getenv("API_KEY")
 DEFAULT_BASE_URL = "https://api.together.xyz/v1"
 DEFAULT_MODEL = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
 CODING_MODEL = "Qwen/Qwen2.5-Coder-32B-Instruct"
